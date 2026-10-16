@@ -1,0 +1,77 @@
+<h1>Registro (Reactive Forms)</h1>
+
+<form [formGroup]="formulario" (ngSubmit)="registrar()" novalidate>
+
+    <div class="campo">
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" type="text" formControlName="nombre">
+        @if (nombre.invalid && (nombre.touched || nombre.dirty)) {
+            @if (nombre.hasError('required')) {
+                <p class="error">El nombre es obligatorio.</p>
+            } @else if (nombre.hasError('minlength')) {
+                <p class="error">El nombre debe tener al menos 3 caracteres.</p>
+            }
+        }
+    </div>
+
+    <div class="campo">
+        <label for="apellidos">Apellidos:</label>
+        <input id="apellidos" type="text" formControlName="apellidos">
+        @if (apellidos.invalid && (apellidos.touched || apellidos.dirty)) {
+            @if (apellidos.hasError('required')) {
+                <p class="error">Los apellidos son obligatorios.</p>
+            } @else if (apellidos.hasError('minlength')) {
+                <p class="error">Los apellidos deben tener al menos 3 caracteres.</p>
+            }
+        }
+    </div>
+
+    <div class="campo">
+        <label for="correo">Correo electrónico:</label>
+        <input id="correo" type="email" formControlName="correo">
+        @if (correo.invalid && (correo.touched || correo.dirty)) {
+            @if (correo.hasError('required')) {
+                <p class="error">El correo es obligatorio.</p>
+            } @else {
+                <p class="error">Ingresa un correo válido.</p>
+            }
+        }
+    </div>
+
+    <div class="campo">
+        <label for="telefono">Teléfono:</label>
+        <input id="telefono" type="tel" formControlName="telefono" placeholder="10 dígitos">
+        @if (telefono.invalid && (telefono.touched || telefono.dirty)) {
+            @if (telefono.hasError('required')) {
+                <p class="error">El teléfono es obligatorio.</p>
+            } @else if (telefono.hasError('pattern')) {
+                <p class="error">El teléfono debe tener 10 dígitos.</p>
+            }
+        }
+    </div>
+
+    <div class="campo">
+        <label for="password">Contraseña:</label>
+        <input id="password" type="password" formControlName="password">
+        @if (password.invalid && (password.touched || password.dirty)) {
+            @if (password.hasError('required')) {
+                <p class="error">La contraseña es obligatoria.</p>
+            } @else if (password.hasError('minlength')) {
+                <p class="error">La contraseña debe tener al menos 6 caracteres.</p>
+            }
+        }
+    </div>
+
+    <button type="submit" [disabled]="formulario.invalid">Registrar</button>
+</form>
+
+@if (registrado && datos) {
+<section class="resultado">
+    <h2>Información registrada</h2>
+    <p><strong>Nombre:</strong> {{ datos.nombre }}</p>
+    <p><strong>Apellidos:</strong> {{ datos.apellidos }}</p>
+    <p><strong>Correo:</strong> {{ datos.correo }}</p>
+    <p><strong>Teléfono:</strong> {{ datos.telefono }}</p>
+    <p><strong>Contraseña:</strong> {{ '*'.repeat(datos.password.length) }}</p>
+</section>
+}

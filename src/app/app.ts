@@ -1,7 +1,8 @@
 import { Component, signal } from '@angular/core';
+import { RegistroReactivo } from './registro-reactivo/registro-reactivo';
 
 @Component({
-  imports: [],
+  imports: [RegistroReactivo],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
